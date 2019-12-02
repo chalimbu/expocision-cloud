@@ -1,11 +1,11 @@
 package co.com.scalatraining.classes
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
 /**
   * Created by judacu on 25/07/17.
   */
-class PatternMatching extends FunSuite{
+class PatternMatching extends AnyFunSuite{
 
   test("El Pattern Maching tiene un uso parecido al Switch de Java, con esteroides") {
     case class Pet(name: String)
