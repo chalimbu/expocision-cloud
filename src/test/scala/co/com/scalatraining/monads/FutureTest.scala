@@ -1,10 +1,9 @@
 package co.com.scalatraining.monads
 import org.scalatest.FunSuite
 
-import scala.util.{Failure, Success}
-import scala.concurrent.{Await, Future, Promise}
-import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration._
+import scala.concurrent.{Await, Future}
 
 class FutureSuite extends FunSuite {
 
@@ -21,7 +20,7 @@ class FutureSuite extends FunSuite {
     println(s"no bloqueo del hilo ${Thread.currentThread().getName}")
 
     assert(welcome == "Hello World")
-    val resultado = Await.result(saludo, 6 seconds)
+    val resultado = Await.result(saludo, Duration.Inf)
     assert(resultado == "Hello World in S4N")
   }
 
@@ -39,7 +38,7 @@ class FutureSuite extends FunSuite {
       y <- f2
     } yield x + y
 
-    val resultadoFuture = Await.result(result, 10 seconds)
+    val resultadoFuture = Await.result(result, Duration.Inf)
 
     assert(resultadoFuture == 4)
 
@@ -59,7 +58,7 @@ class FutureSuite extends FunSuite {
     } yield x + y
 
     assertThrows[ArithmeticException] {
-      val resultadoFuture = Await.result(result, 10 seconds)
+      val resultadoFuture = Await.result(result, Duration.Inf)
     }
   }
 
@@ -72,7 +71,7 @@ class FutureSuite extends FunSuite {
       case e: ArithmeticException => "Math Error"
     }
 
-    val result = Await.result(valFuture, 10 seconds)
+    val result = Await.result(valFuture, Duration.Inf)
 
     assert(result == "Math Error")
   }
@@ -88,7 +87,7 @@ class FutureSuite extends FunSuite {
         }
       }
     }
-    val result = Await.result(valFuture, 10 seconds)
+    val result = Await.result(valFuture, Duration.Inf)
 
     assert(result == 1)
 
@@ -115,7 +114,7 @@ class FutureSuite extends FunSuite {
       c <- f3
     } yield a + b + c
 
-    val res = Await.result(resultado, 10 seconds)
+    val res = Await.result(resultado, Duration.Inf)
 
     println(s"Tiempo despues de que se inició el Future ${System.currentTimeMillis()}")
 
@@ -150,7 +149,7 @@ class FutureSuite extends FunSuite {
     } yield (a + b + c)
 
 
-    val res = Await.result(resultado, 10 seconds)
+    val res = Await.result(resultado, Duration.Inf)
 
     println(s"Tiempo despues de que se inició el Future ${System.currentTimeMillis()}")
 
